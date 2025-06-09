@@ -1,0 +1,802 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <title>u职通 - 大学生兼职与实习平台</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <!-- Google Fonts for better typography -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@500;700&display=swap" rel="stylesheet">
+  <style>
+    body {
+      font-family: 'Montserrat', '微软雅黑', Arial, sans-serif;
+      margin: 0;
+      background: #f6f9fc;
+      color: #222;
+    }
+    header {
+      background: linear-gradient(90deg, #1976d2 70%, #42a5f5 100%);
+      color: #fff;
+      padding: 0;
+      box-shadow: 0 2px 12px #1976d233;
+      position: relative;
+      min-height: 200px;
+    }
+    .header-main {
+      max-width: 1080px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 36px 20px 16px 20px;
+    }
+    .logo-title {
+      display: flex;
+      align-items: center;
+    }
+    .logo-title img {
+      height: 150px;
+      border-radius: 10px;
+      margin-right: 16px;
+      background: #fff;
+    }
+    .platform-title {
+      font-size: 34px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      text-shadow: 1px 2px 8px #0002;
+    }
+    .platform-desc {
+      margin-left: 12px;
+      font-size: 16px;
+      opacity: 0.85;
+      letter-spacing: 1px;
+    }
+    .header-img {
+      margin-left: 40px;
+    }
+    .header-img img {
+      max-height: 80px;
+      border-radius: 18px;
+      box-shadow: 0 8px 24px #1976d266;
+      border: 2px solid #fff;
+    }
+    nav {
+      display: flex;
+      justify-content: center;
+      background: #fff;
+      box-shadow: 0 2px 6px #1976d222;
+      padding: 6px 0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    nav a {
+      color: #1976d2;
+      text-decoration: none;
+      margin: 0 24px;
+      font-weight: 500;
+      font-size: 17px;
+      letter-spacing: 0.5px;
+      border-bottom: 3px solid transparent;
+      padding: 8px 0;
+      transition: border-color 0.3s;
+      position: relative;
+    }
+    nav a.active, nav a:hover {
+      border-bottom: 3px solid #1976d2;
+      color: #1976d2;
+    }
+    nav .user-info {
+      margin-left: 30px;
+      color: #1565c0;
+      font-weight: 600;
+    }
+    .container {
+      max-width: 1200px;
+      margin: 36px auto;
+      background: #fff;
+      padding: 32px 32px 44px 32px;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px #1976d215;
+    }
+    .login-form, .register-form, .resume-form {
+      max-width: 480px;
+      margin: 0 auto;
+      background: #e3f2fd;
+      padding: 28px 24px 20px 24px;
+      border-radius: 11px;
+      box-shadow: 0 2px 12px #1976d233;
+      margin-top: 18px;
+    }
+    .form-group { margin-bottom: 20px; }
+    .form-group label { display: block; margin-bottom: 7px; color: #1976d2; font-weight: 600; }
+    .form-group input, .form-group select, .form-group textarea {
+      width: 100%; padding: 10px 13px; border: 1px solid #cfd8dc; border-radius: 6px;
+      font-size: 15px; letter-spacing: 0.5px; background: #fff;
+    }
+    .form-group textarea { min-height: 70px; resize: vertical;}
+    .btn {
+      background: linear-gradient(90deg, #1976d2 60%, #42a5f5 100%);
+      color: #fff; border: none; border-radius: 5px;
+      padding: 11px 34px; font-size: 17px; font-weight: 600;
+      cursor: pointer; margin-top: 6px;
+      box-shadow: 0 2px 8px #1976d244;
+      transition: background 0.2s;
+    }
+    .btn:hover {
+      background: #125299;
+      box-shadow: 0 4px 12px #1976d244;
+    }
+    .job-list, .company-list, .hot-list, .ranking-list { margin-top: 30px; }
+    .job-item {
+      display: flex; flex-wrap: wrap; align-items: center;
+      border-bottom: 1.5px solid #e3e3e3;
+      padding: 22px 0 18px 0;
+      background: url('#') no-repeat right bottom;
+      background-size: 160px 70px;
+    }
+    .job-logo {
+      width: 56px; height: 56px;
+      margin-right: 23px; border-radius: 50%;
+      object-fit: cover; border: 2px solid #1976d2;
+      box-shadow: 0 2px 8px #1976d233;
+      background: #fff;
+    }
+    .job-content { flex: 1; }
+    .job-title {
+      color: #1976d2; font-weight: bold; font-size: 18px;
+      display: inline-block; margin-bottom: 5px;
+    }
+    .job-meta {
+      color: #666; font-size: 13px; margin-top: 1px; margin-bottom: 4px;
+    }
+    .job-desc { color: #444; margin-bottom: 5px; }
+    .job-type {
+      display: inline-block;
+      font-size: 13px;
+      background: #ffe082;
+      color: #935a12;
+      padding: 1px 10px;
+      border-radius: 10px;
+      margin-left: 10px;
+      margin-right: 10px;
+      font-weight: 500;
+      letter-spacing: 1px;
+    }
+    .job-salary {
+      color: #ef6c00;
+      font-weight: bold;
+      margin-left: 15px;
+      font-size: 15px;
+    }
+    .company-item {
+      border-bottom: 1px solid #e0e0e0;
+      padding: 18px 0 12px 0;
+      display: flex;
+      align-items: center;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .company-item:hover {
+      background: #f3f7fb;
+    }
+    .company-logo {
+      width: 60px; height: 60px; border-radius: 50%; margin-right: 28px; object-fit: cover; border: 2.5px solid #1976d2; background: #fff;
+    }
+    .company-content { flex: 1; }
+    .company-name { font-size: 18px; font-weight: bold; color: #1976d2; }
+    .company-intro { color: #444; margin-top: 4px; }
+    .tab {
+      display: inline-block; margin-right: 34px; padding-bottom: 6px; cursor: pointer; font-weight: bold; font-size: 17px;
+      border-bottom: 3px solid transparent; color: #1976d2; transition: border-color 0.3;
+    }
+    .tab.active { border-bottom: 3px solid #1976d2; color: #1976d2; }
+    .hidden { display: none; }
+    .company-detail {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 40px;
+      margin-top: 24px;
+    }
+    .company-detail-logo {
+      width: 120px; height: 120px; border-radius: 14px; object-fit: cover; border: 2.5px solid #1976d2; background: #fff;
+    }
+    .company-detail-content { flex: 1; min-width: 230px;}
+    .other-jobs-list { margin: 18px 0 0 0;}
+    .other-jobs-list li { margin-bottom: 6px;}
+    .hot-word-cloud {
+      display: flex; flex-wrap: wrap; gap: 10px;
+      margin-top: 20px; max-width: 680px;
+    }
+    .word {
+      display: inline-block;
+      padding: 6px 18px;
+      border-radius: 24px;
+      font-size: 17px;
+      background: linear-gradient(90deg,#ffecb3 60%, #ffe0b2 100%);
+      color: #bc6c19;
+      font-weight: bold;
+      box-shadow: 0 2px 8px #ffe08255;
+      margin: 3px 2px;
+      transition: background 0.2s, color 0.2s, transform 0.2s;
+      cursor: pointer;
+    }
+    .word:hover {background:#1976d2;color:#fff;transform:scale(1.08);}
+    .ranking-list {
+      display: flex; flex-wrap: wrap; gap: 20px;
+      margin-top: 24px;
+    }
+    .ranking-card {
+      background: #f3f7fb;
+      border-radius: 13px;
+      box-shadow: 0 2px 10px #b2c4df3f;
+      padding: 18px 20px;
+      flex: 1 1 240px;
+      min-width: 220px;
+      max-width: 320px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .ranking-card img {
+      width: 60px; height: 60px;
+      border-radius: 11px;
+      margin-right: 14px;
+      object-fit: cover;
+      border: 2px solid #1976d2;
+      background: #fff;
+    }
+    .ranking-title {
+      font-size: 18px; color: #1976d2; font-weight: bold;
+    }
+    .ranking-meta {
+      font-size: 13px; color: #888;
+    }
+    .question-list {margin:14px 0;}
+    .question-item {
+      background:#f2f8fd;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      padding: 10px 16px;
+      box-shadow: 0 1px 6px #1976d233;
+    }
+    .question-title {font-weight:bold;color:#1976d2;}
+    .question-content {margin:3px 0 0 8px;}
+    @media (max-width:900px) {
+      .header-main, .container { padding-left: 5vw; padding-right: 5vw; }
+      .header-img img { max-height: 80px; }
+      .company-detail-logo {width:80px;height:80px;}
+    }
+    @media (max-width:600px) {
+      .container { padding: 10px 2px; }
+      .header-main { flex-direction: column; align-items: flex-start; padding: 24px 8px 8px 8px; }
+      .header-img { margin: 14px 0 0 0; }
+      nav { flex-direction: column; }
+      nav a { margin: 5px 0; }
+      .company-logo, .job-logo { width: 40px; height: 40px; }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="header-main">
+      <div class="logo-title">
+        <img src="imges/产品logo.png" alt="u职通logo">
+        <span>
+          <span class="platform-title">u职通</span>
+          <span class="platform-desc">大学生兼职与实习平台</span>
+        </span>
+      </div>
+      <div class="header-img">
+        <img src="imges/头图.jpg" alt="头图">
+      </div>
+    </div>
+  </header>
+  <nav>
+    <a href="#" onclick="showTab('home',this);return false;" class="active" id="navHome">首页</a>
+    <a href="#" onclick="showTab('jobs',this);return false;" id="navJobs">兼职/实习</a>
+    <a href="#" onclick="showTab('companies',this);return false;" id="navCompanies">企业名录</a>
+    <a href="#" onclick="showTab('community',this);return false;" id="navCommunity">成长社区</a>
+    <a href="#" onclick="showTab('resume',this);return false;" id="navResume">个人简历</a>
+    <a href="#" onclick="showTab('login',this);return false;" id="loginNav" style="margin-left: 25px;">登录/注册</a>
+    <a href="#" onclick="logout();return false;" id="logoutNav" style="display:none;margin-left:25px;">退出</a>
+    <span class="user-info" id="userInfo"></span>
+  </nav>
+  <div class="container">
+    <!-- 首页 -->
+    <div id="tab-home">
+      <div style="display:flex;align-items:center;flex-wrap:wrap;">
+        <img src="imges/平台海报二.png"
+          alt="banner" style="width:280px;max-width:95vw;border-radius:18px;box-shadow:0 6px 18px #1976d244;margin-right:32px;">
+        <div style="flex:1;min-width:220px;">
+          <h2 style="color:#1976d2;margin-bottom:12px;font-size:26px;">开启大学生职业成长之旅，从u职通出发！</h2>
+          <ul style="font-size:16px;color:#355;">
+            <li>智能岗位匹配，个性化兼职/实习推荐</li>
+            <li>诚信保障体系，远离虚假与诈骗</li>
+            <li>HR职业指导，助力能力提升</li>
+            <li>成长社区，经验分享互助</li>
+          </ul>
+          <button class="btn" onclick="showTab('register');">立即注册</button>
+        </div>
+      </div>
+      <!-- 热门排行榜 -->
+      <h3 style="margin-top:40px;color:#1976d2;">🔥 热门兼职/实习排行榜</h3>
+      <div class="ranking-list" id="rankingList"></div>
+      <!-- AI词云 -->
+      <h3 style="margin-top:36px;color:#1976d2;">AI词云：近年热门就业方向与技能</h3>
+      <div class="hot-word-cloud" id="wordCloud"></div>
+    </div>
+
+    <!-- 岗位列表 -->
+    <div id="tab-jobs" class="hidden">
+      <h2 style="color:#1976d2;">热门兼职与实习岗位</h2>
+      <div style="margin-bottom: 16px;">
+        <input type="text" id="jobSearch" placeholder="搜索岗位/关键词..." style="width:60%; padding:8px 12px;border-radius:5px;border:1.5px solid #b3c6e2;font-size:15px;margin-right:20px;">
+        <select id="jobTypeFilter" onchange="renderJobs()" style="padding:8px 12px;border-radius:5px;border:1.5px solid #b3c6e2;font-size:15px;">
+          <option value="">全部类型</option>
+          <option value="线上兼职">线上兼职</option>
+          <option value="线下实习">线下实习</option>
+        </select>
+      </div>
+      <div class="job-list" id="jobList"></div>
+    </div>
+
+    <!-- 企业名录 -->
+    <div id="tab-companies" class="hidden">
+      <h2 style="color:#1976d2;">优质合作企业</h2>
+      <div class="company-list" id="companyList"></div>
+    </div>
+
+    <!-- 企业详情 -->
+    <div id="tab-company-detail" class="hidden">
+      <button class="btn" onclick="showTab('companies',document.getElementById('navCompanies'))" style="margin-bottom:18px;">← 返回企业名录</button>
+      <div class="company-detail" id="companyDetailPanel"></div>
+    </div>
+
+    <!-- 个人简历 -->
+    <div id="tab-resume" class="hidden">
+      <h2 style="color:#1976d2;">我的简历</h2>
+      <form class="resume-form" id="resumeForm" onsubmit="saveResume(event)">
+        <div class="form-group">
+          <label>姓名</label>
+          <input type="text" id="resumeName" required placeholder="请输入姓名">
+        </div>
+        <div class="form-group">
+          <label>联系方式</label>
+          <input type="text" id="resumeContact" placeholder="手机号或邮箱">
+        </div>
+        <div class="form-group">
+          <label>教育背景</label>
+          <input type="text" id="resumeEdu" placeholder="学校/专业/学历">
+        </div>
+        <div class="form-group">
+          <label>技能特长</label>
+          <input type="text" id="resumeSkill" placeholder="如：Java、数据分析、PS等">
+        </div>
+        <div class="form-group">
+          <label>实习/兼职经历</label>
+          <textarea id="resumeExp" placeholder="请简要描述经历与成果"></textarea>
+        </div>
+        <div class="form-group">
+          <label>自我评价</label>
+          <textarea id="resumeDesc" placeholder="一句话总结你的优势"></textarea>
+        </div>
+        <button class="btn" type="submit">保存简历</button>
+      </form>
+      <div id="showResumePanel" class="hidden">
+        <h3>我的简历展示</h3>
+        <div id="resumeShow"></div>
+        <button class="btn" onclick="editResume()">编辑简历</button>
+      </div>
+    </div>
+
+    <!-- 成长社区 -->
+    <div id="tab-community" class="hidden">
+      <h2 style="color:#1976d2;">成长社区</h2>
+      <div style="margin-bottom:12px;">
+        <div class="tab active" onclick="changeCommunityTab('qa',this)">问答互助</div>
+        <div class="tab" onclick="changeCommunityTab('career',this)">职业指导</div>
+        <div class="tab" onclick="changeCommunityTab('share',this)">经验分享</div>
+      </div>
+      <div id="community-qa" class="community-panel">
+        <div class="question-list">
+          <div class="question-item">
+            <div class="question-title">[问] 实习时如何快速融入新环境？</div>
+            <div class="question-content">[答] 主动沟通请教、注重团队协作、观察公司文化，遇到问题及时请教同事。</div>
+          </div>
+          <div class="question-item">
+            <div class="question-title">[问] 简历投递后多久能收到回复？</div>
+            <div class="question-content">[答] 一般3-7天，如有意向会主动联系，建议关注邮件和电话。</div>
+          </div>
+          <div class="question-item">
+            <div class="question-title">[问] 线上兼职有哪些防骗技巧？</div>
+            <div class="question-content">[答] 认准平台认证岗位，不提前缴费，不轻信高薪，遇到可疑及时举报。</div>
+          </div>
+          <div class="question-item">
+            <div class="question-title">[问] 如何写一份有竞争力的简历？</div>
+            <div class="question-content">[答] 强调项目/实习成果、量化成绩、突出核心技能和社会活动经验。</div>
+          </div>
+          <div class="question-item">
+            <div class="question-title">[问] AI行业实习需要哪些基础？</div>
+            <div class="question-content">[答] 建议学习Python、数据结构、机器学习基础，掌握常用AI框架如TensorFlow、PyTorch。</div>
+          </div>
+          <div class="question-item">
+            <div class="question-title">[问] 产品经理岗位对大学生有哪些要求？</div>
+            <div class="question-content">[答] 需要较强沟通能力、逻辑思维、一定的项目经历和学习能力。</div>
+          </div>
+        </div>
+      </div>
+      <div id="community-career" class="community-panel hidden">
+        <div style="background:#fce4ec;border-radius:10px;padding:16px;">
+          <p><b>【简历优化】</b> 上传你的简历，获得HR免费点评！</p>
+          <p><b>【面试指导】</b> 预约资深HR一对一指导，提升面试通过率。</p>
+          <p><b>【职业测评】</b> 完成兴趣测评，获得专属职业推荐。</p>
+        </div>
+      </div>
+      <div id="community-share" class="community-panel hidden">
+        <div style="background:#fffde7;border-radius:10px;padding:16px;">
+          <p><b>【经验分享】</b> <br>“我的第一份大厂实习经历”——阿里实习生小张</p>
+          <p>“合理安排时间，勇敢尝试，不怕失败！”</p>
+          <hr>
+          <p>“线上兼职赚学费，真实心得分享”——大三张同学</p>
+          <hr>
+          <p>“如何靠新媒体实习拿到offer”——传媒专业李同学</p>
+        </div>
+      </div>
+    </div>
+    <!-- 登录 -->
+    <div id="tab-login" class="hidden">
+      <h2 style="color:#1976d2;">用户登录</h2>
+      <form class="login-form" onsubmit="return login(event)">
+        <div class="form-group">
+          <label for="loginUser">手机号/邮箱</label>
+          <input type="text" id="loginUser" required>
+        </div>
+        <div class="form-group">
+          <label for="loginPwd">密码</label>
+          <input type="password" id="loginPwd" required>
+        </div>
+        <button class="btn" type="submit">登录</button>
+        <span style="margin-left:18px;"><a href="#" onclick="showTab('register')">没有账号？注册</a></span>
+      </form>
+    </div>
+    <!-- 注册 -->
+    <div id="tab-register" class="hidden">
+      <h2 style="color:#1976d2;">用户注册</h2>
+      <form class="register-form" onsubmit="return register(event)">
+        <div class="form-group">
+          <label for="regUser">手机号/邮箱</label>
+          <input type="text" id="regUser" required>
+        </div>
+        <div class="form-group">
+          <label for="regPwd">密码</label>
+          <input type="password" id="regPwd" required>
+        </div>
+        <div class="form-group">
+          <label for="regRole">身份</label>
+          <select id="regRole" required>
+            <option value="student">大学生</option>
+            <option value="company">企业</option>
+          </select>
+        </div>
+        <button class="btn" type="submit">注册</button>
+      </form>
+    </div>
+  </div>
+  <script>
+    // 前端状态切换与假数据
+    let currentUser = null;
+    const users = [
+      { user: "student@uni.com", pwd: "123456", role: "student", name: "王同学" },
+      { user: "hr@corp.com", pwd: "123456", role: "company", name: "李经理" }
+    ];
+
+    function showTab(tab, el) {
+      ['home','jobs','companies','company-detail','community','login','register','resume'].forEach(t=>{
+        document.getElementById('tab-'+t).classList.add('hidden');
+      });
+      document.getElementById('tab-'+tab).classList.remove('hidden');
+      ['navHome','navJobs','navCompanies','navCommunity','navResume'].forEach(id=>{
+        let n = document.getElementById(id);
+        if(n) n.classList.remove('active');
+      });
+      if(el && el.id) el.classList.add('active');
+      if(tab==='login'||tab==='register') {
+        document.getElementById("loginNav").style.display="none";
+        document.getElementById("logoutNav").style.display="none";
+      } else {
+        if(currentUser) {
+          document.getElementById("loginNav").style.display="none";
+          document.getElementById("logoutNav").style.display="inline";
+        } else {
+          document.getElementById("loginNav").style.display="inline";
+          document.getElementById("logoutNav").style.display="none";
+        }
+      }
+      // 展示简历
+      if(tab==='resume') showResume();
+    }
+    showTab('home', document.getElementById('navHome'));
+
+    // 岗位与企业假数据
+    const jobs = [
+      {
+        id:1, title:"线上助教（可远程）", type:"线上兼职", company:"新东方", companyId:0,
+        logo:"imges/新东方线上.jpg",
+        location:"不限", salary:"30元/小时", desc:"负责作业答疑，课后辅导",
+        tag:"教育", learn:"教育心理学、沟通表达、作业批改"
+      },
+      {
+        id:2, title:"内容运营实习生", type:"线下实习", company:"字节跳动", companyId:1,
+        logo:"imges/字节跳动运营.jpg",
+        location:"北京", salary:"150元/天", desc:"参与短视频内容策划",
+        tag:"互联网", learn:"新媒体运营、内容编辑、数据分析"
+      },
+      {
+        id:3, title:"新媒体文案兼职", type:"线上兼职", company:"小红书", companyId:2,
+        logo:"imges/小红书文案兼职.jpg",
+        location:"不限", salary:"80元/篇", desc:"撰写品牌推广文案",
+        tag:"传媒", learn:"文案写作、品牌推广、社交媒体"
+      },
+      {
+        id:4, title:"软件开发实习生", type:"线下实习", company:"腾讯", companyId:3,
+        logo:"imges/腾讯软件开发实习.jpg",
+        location:"深圳", salary:"200元/天", desc:"参与项目开发，导师指导",
+        tag:"IT", learn:"C++/Java/Python、数据结构、团队协作"
+      },
+      {
+        id:5, title:"产品助理实习", type:"线下实习", company:"腾讯", companyId:3,
+        logo:"imges/腾讯产品助理实习.jpg",
+        location:"深圳", salary:"180元/天", desc:"协助产品经理需求调研、文档撰写",
+        tag:"产品", learn:"需求分析、产品文档、跨部门沟通"
+      },
+      {
+        id:6, title:"图书校对兼职", type:"线上兼职", company:"新东方", companyId:0,
+        logo:"imges/新东方图书校对.jpg",
+        location:"不限", salary:"40元/小时", desc:"校对教辅资料，修正错别字",
+        tag:"编辑", learn:"语文基础、细致耐心、文档处理"
+      }
+    ];
+    const companies = [
+      { id:0, name:"新东方", industry:"教育培训", logo:"imges/新东方logo.jpeg", intro:"中国领先的教育集团，广泛招聘大学生助教/兼职。" },
+      { id:1, name:"字节跳动", industry:"互联网", logo:"imges/字节跳动logo.jpg", intro:"知名互联网公司，常年招聘内容运营、产品实习生。" },
+      { id:2, name:"小红书", industry:"新媒体", logo:"imges/小红书logo.PNG", intro:"新锐生活方式社区，欢迎新媒体和内容方向人才。" },
+      { id:3, name:"腾讯", industry:"IT", logo:"imges/腾讯logo.PNG", intro:"中国科技巨头，实习与校招机会丰富，重视技术成长。" }
+    ];
+
+    // 热门排行数据
+    const ranking = [
+      {title:"新东方-线上助教", img:"imges/新东方线上.jpg", meta:"灵活时间 | 远程答疑", hot:980},
+      {title:"字节跳动-内容运营", img:"imges/字节跳动运营.jpg", meta:"短视频/新媒体", hot:900},
+      {title:"腾讯-软件开发实习", img:"imges/腾讯软件开发实习.jpg", meta:"技术成长 | 转正机会", hot:880},
+      {title:"小红书-文案兼职", img:"imges/小红书文案兼职.jpg", meta:"创意写作 | 品牌推广", hot:780},
+      {title:"腾讯-产品助理实习", img:"imges/腾讯产品助理实习.jpg", meta:"需求调研 | 产品文档", hot:720}
+    ];
+
+    // AI词云数据
+    const wordCloudData = [
+      {name:"人工智能", color:"#ff9800"},
+      {name:"数据分析", color:"#43a047"},
+      {name:"新媒体运营", color:"#1976d2"},
+      {name:"短视频", color:"#e91e63"},
+      {name:"产品经理", color:"#00897b"},
+      {name:"前端开发", color:"#d32f2f"},
+      {name:"大数据", color:"#7b1fa2"},
+      {name:"跨境电商", color:"#5d4037"},
+      {name:"品牌文案", color:"#fbc02d"},
+      {name:"云计算", color:"#0288d1"},
+      {name:"算法工程师", color:"#388e3c"},
+      {name:"UI设计", color:"#9c27b0"},
+      {name:"商业分析", color:"#c2185b"},
+      {name:"客服外包", color:"#795548"},
+      {name:"直播带货", color:"#ff5722"}
+    ];
+
+    // 简历缓存
+    let resumeData = null;
+
+    function renderJobs() {
+      let val = document.getElementById('jobSearch').value.trim();
+      let type = document.getElementById('jobTypeFilter').value;
+      let html = jobs.filter(j => (!val||j.title.includes(val)||j.company.includes(val)||j.desc.includes(val)) && (!type||j.type===type))
+        .map(j => `
+          <div class="job-item">
+            <img src="${j.logo}" class="job-logo" alt="logo">
+            <div class="job-content">
+              <div class="job-title">${j.title}
+                <span class="job-type">${j.type}</span>
+                <span class="job-salary">${j.salary}</span>
+              </div>
+              <div class="job-meta">${j.company} | ${j.location} | ${j.tag}</div>
+              <div class="job-desc">${j.desc}</div>
+              <b>建议学习：</b> <span style="color:#1976d2">${j.learn}</span>
+              <button class="btn" style="margin-top:8px;" onclick="applyJob('${j.title}')">申请</button>
+            </div>
+          </div>
+        `).join("") || "<div style='color:#999;padding:12px;'>暂无符合条件的岗位</div>";
+      document.getElementById('jobList').innerHTML = html;
+    }
+
+    function renderCompanies() {
+      let html = companies.map(c=>`
+        <div class="company-item" onclick="showCompanyDetail(${c.id})">
+          <img src="${c.logo}" class="company-logo" alt="logo">
+          <div class="company-content">
+            <span class="company-name">${c.name}</span> <span style="font-size:13px;color:#888;">(${c.industry})</span>
+            <div class="company-intro">${c.intro}</div>
+          </div>
+        </div>
+      `).join("");
+      document.getElementById('companyList').innerHTML = html;
+    }
+    renderJobs(); renderCompanies();
+
+    document.getElementById('jobSearch').oninput = renderJobs;
+
+    function applyJob(jobTitle) {
+      if(!currentUser) {
+        alert("请先登录后再申请岗位！");
+        showTab('login');
+        return;
+      }
+      alert("已申请岗位："+jobTitle+"！\n请关注企业回复或平台通知。");
+    }
+
+    function showCompanyDetail(cid) {
+      // 切换tab
+      showTab('company-detail');
+      // 查找公司
+      let c = companies.find(c=>c.id===cid);
+      let jobsOfCompany = jobs.filter(j=>j.companyId===cid);
+      let html = `
+        <img class="company-detail-logo" src="${c.logo}" alt="公司LOGO">
+        <div class="company-detail-content">
+          <h2 style="color:#1976d2;margin:0;">${c.name}</h2>
+          <p><b>行业：</b>${c.industry}</p>
+          <p>${c.intro}</p>
+          <h3 style="margin-top:16px;">公司兼职/实习岗位</h3>
+          <ul class="other-jobs-list">
+            ${jobsOfCompany.map(j=>`
+              <li>
+                <b>${j.title}</b> | ${j.type} | ${j.salary} | <span style="color:#1976d2">${j.location}</span><br>
+                <span style="font-size:13px;color:#888;">${j.desc}</span><br>
+                <span>建议学习：<span style="color:#1976d2;">${j.learn}</span></span>
+                <button class="btn" style="margin-left:18px;padding:3px 16px;font-size:15px;" onclick="applyJob('${j.title}')">申请</button>
+              </li>
+            `).join("")}
+          </ul>
+        </div>
+      `;
+      document.getElementById('companyDetailPanel').innerHTML = html;
+    }
+
+    // 热门排行
+    function renderRanking() {
+      let html = ranking.map(r=>
+        `<div class="ranking-card">
+          <img src="${r.img}" alt="岗位">
+          <div>
+            <div class="ranking-title">${r.title}</div>
+            <div class="ranking-meta">${r.meta}</div>
+            <span style="color:#ef6c00;font-size:13px;">热度：${r.hot}</span>
+          </div>
+        </div>`
+      ).join('');
+      document.getElementById('rankingList').innerHTML = html;
+    }
+    renderRanking();
+
+    // 词云
+    function renderWordCloud() {
+      let html = wordCloudData.map(w=>
+        `<span class="word" style="background:linear-gradient(90deg,${w.color}33 60%,#ffe0b2);color:${w.color}" title="点击了解相关岗位">${w.name}</span>`
+      ).join('');
+      document.getElementById('wordCloud').innerHTML = html;
+    }
+    renderWordCloud();
+
+    function login(e) {
+      e.preventDefault();
+      let user = document.getElementById('loginUser').value.trim();
+      let pwd = document.getElementById('loginPwd').value;
+      let u = users.find(u=>u.user===user && u.pwd===pwd);
+      if(u) {
+        currentUser = u;
+        document.getElementById('userInfo').textContent = "欢迎，"+u.name+"（"+(u.role==="student"?"大学生":"企业")+")";
+        showTab('home', document.getElementById('navHome'));
+        document.getElementById("loginNav").style.display="none";
+        document.getElementById("logoutNav").style.display="inline";
+      } else {
+        alert("账号或密码错误！");
+      }
+      return false;
+    }
+
+    function register(e) {
+      e.preventDefault();
+      let user = document.getElementById('regUser').value.trim();
+      let pwd = document.getElementById('regPwd').value;
+      let role = document.getElementById('regRole').value;
+      if(users.find(u=>u.user===user)) {
+        alert("该账号已存在，请直接登录。");
+        showTab('login', document.getElementById('loginNav'));
+        return false;
+      }
+      let name = role==='student'?"新同学":"新企业";
+      let newUser      = { user, pwd, role, name };
+      users.push(newUser);
+      alert("注册成功，欢迎加入u职通！");
+      currentUser = newUser;
+      document.getElementById('userInfo').textContent = "欢迎，"+name+"（"+(role==="student"?"大学生":"企业")+")";
+      showTab('home', document.getElementById('navHome'));
+      document.getElementById("loginNav").style.display="none";
+      document.getElementById("logoutNav").style.display="inline";
+      return false;
+    }
+
+    function logout() {
+      currentUser = null;
+      document.getElementById('userInfo').textContent = "";
+      showTab('home', document.getElementById('navHome'));
+      document.getElementById("loginNav").style.display="inline";
+      document.getElementById("logoutNav").style.display="none";
+    }
+
+    function changeCommunityTab(tab, el) {
+      ["qa","career","share"].forEach(t=>{
+        document.getElementById("community-"+t).classList.add("hidden");
+      });
+      document.getElementById("community-"+tab).classList.remove("hidden");
+      let tabs = document.querySelectorAll('.tab');
+      tabs.forEach((item, i) => {
+        item.classList.toggle('active', ["qa","career","share"][i]===tab);
+      });
+    }
+
+    // 简历模块
+    function saveResume(e) {
+      e.preventDefault();
+      resumeData = {
+        name: document.getElementById('resumeName').value,
+        contact: document.getElementById('resumeContact').value,
+        edu: document.getElementById('resumeEdu').value,
+        skill: document.getElementById('resumeSkill').value,
+        exp: document.getElementById('resumeExp').value,
+        desc: document.getElementById('resumeDesc').value
+      };
+      showResume();
+      return false;
+    }
+    function showResume() {
+      if(resumeData) {
+        document.getElementById('resumeForm').classList.add('hidden');
+        document.getElementById('showResumePanel').classList.remove('hidden');
+        document.getElementById('resumeShow').innerHTML = `
+          <p><b>姓名：</b>${resumeData.name}</p>
+          <p><b>联系方式：</b>${resumeData.contact}</p>
+          <p><b>教育背景：</b>${resumeData.edu}</p>
+          <p><b>技能特长：</b>${resumeData.skill}</p>
+          <p><b>实习/兼职经历：</b>${resumeData.exp}</p>
+          <p><b>自我评价：</b>${resumeData.desc}</p>
+        `;
+      } else {
+        document.getElementById('resumeForm').classList.remove('hidden');
+        document.getElementById('showResumePanel').classList.add('hidden');
+      }
+    }
+    function editResume() {
+      document.getElementById('resumeForm').classList.remove('hidden');
+      document.getElementById('showResumePanel').classList.add('hidden');
+      if(resumeData) {
+        document.getElementById('resumeName').value = resumeData.name;
+        document.getElementById('resumeContact').value = resumeData.contact;
+        document.getElementById('resumeEdu').value = resumeData.edu;
+        document.getElementById('resumeSkill').value = resumeData.skill;
+        document.getElementById('resumeExp').value = resumeData.exp;
+        document.getElementById('resumeDesc').value = resumeData.desc;
+      }
+    }
+
+  </script>
+</body>
+</html>
